@@ -1,0 +1,214 @@
+/* ==========================================================
+   Computer Science and Electronics — stylesheet
+   All colors, fonts, and spacing live in the tokens below,
+   so restyling the site means editing this block only.
+   ========================================================== */
+
+:root {
+  /* Typefaces (stock fallbacks keep it readable offline) */
+  --font-head: "Afacad Flux", "Segoe UI", Roboto, system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+
+  /* Palette: warm paper, ink, and a muted copper accent */
+  --paper:      #f3ecdc;
+  --paper-deep: #e8dfc9;
+  --card:       #fbf7ee;
+  --ink:        #2b2620;
+  --ink-soft:   #5e5548;
+  --rule:       #d5c9ae;
+  --accent:     #8a4b22;
+  --accent-ink: #6e3a18;
+  --focus:      #2f6f8f;
+
+  /* Rhythm */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --radius:  6px;
+  --max:     68rem;
+  --card-min: 15rem;   /* narrowest a card may get before wrapping */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #1f1c18;
+    --paper-deep: #181512;
+    --card:       #2a2621;
+    --ink:        #e6dccb;
+    --ink-soft:   #b3a792;
+    --rule:       #423b32;
+    --accent:     #d39463;
+    --accent-ink: #e3ab7e;
+    --focus:      #7fb8d4;
+  }
+}
+
+/* ---------- Base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.0625rem);
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-head);
+  line-height: 1.15;
+  margin: 0;
+}
+
+a { color: var(--accent-ink); }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--card);
+  padding: var(--space-2) var(--space-3);
+}
+.skip-link:focus { left: var(--space-2); top: var(--space-2); }
+
+/* ---------- Header ---------- */
+
+.site-header {
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--rule);
+  padding-block: var(--space-5) var(--space-4);
+}
+
+.site-header h1 {
+  font-size: clamp(1.75rem, 1.2rem + 3vw, 3rem);
+  font-weight: 650;
+  color: var(--ink-soft);   /* deliberately not high-glare */
+  letter-spacing: -0.01em;
+}
+
+.lede {
+  margin: var(--space-2) 0 var(--space-4);
+  max-width: 42rem;
+  color: var(--ink-soft);
+}
+
+.toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.toc a {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--card);
+  text-decoration: none;
+  font-size: 0.9em;
+}
+.toc a:hover { border-color: var(--accent); }
+
+/* ---------- Sections ---------- */
+
+main { padding-block: var(--space-5); }
+
+.group + .group { margin-top: var(--space-5); }
+
+.group h2 {
+  font-size: clamp(1.3rem, 1.1rem + 1vw, 1.75rem);
+  font-weight: 600;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+  border-bottom: 2px solid var(--rule);
+  scroll-margin-top: var(--space-3);
+}
+
+/* ---------- Cards ---------- */
+
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--card-min)), 1fr));
+  gap: var(--space-3);
+}
+
+.card a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-3);
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.card a:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+.card h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+.card p {
+  margin: 0;
+  color: var(--ink-soft);
+  flex-grow: 1;
+}
+
+.card .url {
+  font-size: 0.8em;
+  color: var(--ink-soft);
+  opacity: 0.85;
+}
+
+/* Small "off-site" tag for external links */
+.card.external .url::after {
+  content: " · external";
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card a { transition: none; }
+  .card a:hover { transform: none; }
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding-block: var(--space-4);
+  color: var(--ink-soft);
+  font-size: 0.85em;
+}
+.site-footer p { margin: 0; }
